@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class User {
+public class User implements ModelClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USR_ID")
-    private int usrId;
+    private int id;
     @Column(name = "USR_FIRSTNAME")
     private String firstName;
     @Column(name = "USR_LASTNAME")
@@ -21,9 +21,14 @@ public class User {
     private String password;
     @Column(name = "USR_EMAIL")
     private String email;
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (cascade = CascadeType.MERGE)
     @JoinColumn(name = "USR_ADD_ID", referencedColumnName = "ADD_ID")
     private Address address;
     @Column(name = "USR_BIRTH_DATE")
     private LocalDateTime birthDate;
+
+    @Override
+    public int getId() {
+        return id;
+    }
 }

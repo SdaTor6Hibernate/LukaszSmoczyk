@@ -7,18 +7,20 @@
 
         <property name="connection.url">jdbc:mysql://localhost:3308/shop?serverTimezone=CET</property>
         <property name="hibernate.connection.username">root</property>
+
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <property name="hbm2dll.auto">true</property>
+        <property name="hbm2ddl.auto">validate</property>
+        <property name="hibernate.connection.provider_disables_autocommit">true</property>
 
-        <mapping class="model.Country"/>
+        <!-- W Springu można skanować pakiety w poszukiwaniu encji - niestety, goły hibernate tego nie ma -->
         <mapping class="model.Address"/>
+        <mapping class="model.Country"/>
         <mapping class="model.User"/>
-        <mapping class="model.Category"/>
-        <mapping class="model.Product"/>
         <mapping class="model.Order"/>
-
+        <mapping class="model.Product"/>
+        <mapping class="model.Category"/>
     </session-factory>
 </hibernate-configuration>

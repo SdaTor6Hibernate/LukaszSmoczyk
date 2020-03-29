@@ -1,19 +1,20 @@
 package model;
 
 import lombok.Data;
-import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
-public class Product {
+public class Product implements ModelClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRO_ID")
-    private int productId;
+    private int id;
     @Column(name = "PRO_NAME")
     private String productName;
     @Column(name = "PRO_PRICE")
@@ -24,5 +25,16 @@ public class Product {
     @JoinColumn(name = "PRO_CAT_ID", referencedColumnName = "CAT_ID")
     private Category category;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cart",
+            joinColumns = {@JoinColumn(name = "CRT_PRO_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CRT_ORD_ID")}
+    )
+    private Set<Order> orders = new HashSet<>();
 
+    @Override
+    public int getId() {
+        return id;
+    }
 }
