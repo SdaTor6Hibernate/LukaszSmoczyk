@@ -14,6 +14,11 @@
         <property name="hbm2dll.auto">true</property>
 
         <mapping class="model.Country"/>
+        <mapping class="model.Address"/>
+        <mapping class="model.User"/>
+        <mapping class="model.Category"/>
+        <mapping class="model.Product"/>
+        <mapping class="model.Order"/>
 
     </session-factory>
 </hibernate-configuration>
