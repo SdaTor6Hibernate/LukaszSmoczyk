@@ -22,4 +22,10 @@ public class Country implements ModelClass {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString(){
+        return ""+id;
+    }
+
 }

@@ -16,6 +16,11 @@ public class Category implements ModelClass {
     private String name;
 
     @Override
+    public String toString(){
+        return ""+id;
+    }
+
+    @Override
     public int getId() {
         return id;
     }

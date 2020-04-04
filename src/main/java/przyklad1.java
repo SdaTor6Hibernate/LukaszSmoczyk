@@ -8,8 +8,8 @@ public class przyklad1 {
     public static void main(String[] args) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-//        Address address = session.find(Address.class, 1);
+        Address address = session.find(Address.class, 1);
         session.close();
-//        System.out.println(address.toString());
+        System.out.println(address.toString());
     }
 }

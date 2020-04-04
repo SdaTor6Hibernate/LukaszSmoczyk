@@ -1,16 +1,21 @@
 package model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "`order`")
 @Data
-@Table (name = "`order`")
+@EqualsAndHashCode(exclude = {"products", "user"})
+@ToString(exclude = {"products", "user"})
 public class Order implements ModelClass {
 
     @Id
@@ -21,10 +26,15 @@ public class Order implements ModelClass {
     private LocalDateTime orderDate;
     @Column(name = "ORD_PRICE")
     private BigDecimal orderPrice;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORD_USR_ID", referencedColumnName = "USR_ID")
-    private User orderUser;
+    private User user;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "cart",
+            joinColumns = {@JoinColumn(name = "CRT_ORD_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CRT_PRO_ID")})
     private Set<Product> products = new HashSet<>();
+
+
 }

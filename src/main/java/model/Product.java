@@ -1,6 +1,8 @@
 package model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = {"orders", "category"})
+@ToString(exclude = {"orders", "category"})
+
 public class Product implements ModelClass {
 
     @Id
@@ -25,16 +30,17 @@ public class Product implements ModelClass {
     @JoinColumn(name = "PRO_CAT_ID", referencedColumnName = "CAT_ID")
     private Category category;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "cart",
-            joinColumns = {@JoinColumn(name = "CRT_PRO_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "CRT_ORD_ID")}
-    )
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     private Set<Order> orders = new HashSet<>();
 
     @Override
-    public int getId() {
-        return id;
+    public String toString(){
+        return ""+id;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        return result;
     }
 }
